@@ -3,7 +3,7 @@
 module Victor
 
   class SVG
-    attr_accessor :template, :css
+    attr_accessor :template, :css, :defs
     attr_reader :content, :svg_attributes
 
     def initialize(attributes={})
@@ -13,6 +13,7 @@ module Victor
       svg_attributes[:height] ||= "100%"
       @content = []
       @css = {}
+      @defs = {}
     end
 
     def method_missing(method_sym, *arguments, &block)
@@ -43,6 +44,7 @@ module Victor
     def render
       svg_template % { 
         css: CSS.new(css),
+        defs: DEFS.new(defs),
         attributes: svg_attributes, 
         content: content.join("\n") 
       }

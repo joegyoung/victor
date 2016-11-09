@@ -8,6 +8,9 @@
 %{css}
 ]]>
 </style>
+<defs >
+%{defs}
+</defs >
 
 %{content}
 
