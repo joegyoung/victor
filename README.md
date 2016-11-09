@@ -234,6 +234,51 @@ svg.css = {
 Underscore characters will be converted to dashes (`stroke_width` becomes 
 `stroke-width`).
 
+
+
+PATTERNS
+--------------------------------------------------
+
+Patterns are similar to regular svg. Create a new SVG with a defs template. Then you can add this new SVG like a css in a second SVG file
+
+```ruby
+require 'victor'
+crossHatch  = SVG.new id: 'crossHatch',width: 20, height: 20, template: :defs 
+crossHatch.build do
+    crossHatch.path d: ['M', 19, 0, 'Q', 18, 5, 20, 3]
+    crossHatch.path d: ['M', 15, 0, 'Q', 17, 5, 20, 6]
+    crossHatch.path d: ['M', 12, 0, 'Q', 18, 8, 20, 9]
+    crossHatch.path d: ['M', 9,  0, 'Q', 16, 10, 26, 17]
+    crossHatch.path d: ['M', 6,  0, 'Q', 14, 10, 23,17]
+    crossHatch.path d: ['M',3,0, 'Q', 12, 10, 20,17]
+    crossHatch.path d: ['M',0,0, 'Q', 10, 10, 20,20]
+    crossHatch.path d: ['M',0,3, 'Q', 14, 16, 17,20]
+    crossHatch.path d: ['M',0,6, 'Q',12,16, 13,20]
+    crossHatch.path d: ['M',0,9, 'Q',10,16, 10,20]
+    crossHatch.path d: ['M',0,12, 'Q',8,18, 7,20]
+    crossHatch.path d: ['M',0,15, 'Q',4,18, 4,20]
+    crossHatch.path d: ['M',0,3, 'Q',4,4, 3,0]
+    crossHatch.path d: ['M',0,6, 'Q',5,5, 6,0]
+    crossHatch.path d: ['M',0,9, 'Q',6,6, 9,0]
+    crossHatch.path d: ['M',0,12, 'Q',7,7, 12,0]
+    crossHatch.path d: ['M',0,15, 'Q',10,10, 15,0]
+    crossHatch.path d: ['M',0,18, 'Q',12,12, 18,0]
+    crossHatch.path d: ['M',0,18, 'Q',12,12, 18,0]
+    crossHatch.path d: ['M',8,20, 'Q',16,16, 20,8]
+    crossHatch.path d: ['M',11,20, 'Q',18,18, 20,11]
+    crossHatch.path d: ['M',14,20, 'Q',20,20, 20,14]
+end
+svg = SVG.new width: 500, height: 80
+svg.build do
+    defs['crossHatch'] = {
+             'details':  crossHatch.render 
+          }
+    rect x: 0, y: 0, width: 420, height: 80, style: 'stroke:black;stroke-width:2px; fill:url(#crossHatch) #555;'
+end
+svg.save 'test'
+```
+
+
 ---
 
 [examples]: https://github.com/DannyBen/victor/tree/master/examples#examples
